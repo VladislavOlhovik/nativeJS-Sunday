@@ -82,7 +82,8 @@ console.log(copyFriends);
 copyFriends.splice(1,1,'boris')
 console.log(copyFriends);
 //4.обрезать нос
-copyFriends.splice(0,2)
+// copyFriends.splice(0,2)
+console.log(copyFriends.splice(0,1));
 console.log(copyFriends);
 //5.обрезать хвост
 copyFriends.splice(-1,1)
