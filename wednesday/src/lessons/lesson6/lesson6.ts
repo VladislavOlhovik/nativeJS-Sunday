@@ -242,9 +242,9 @@ class Motorbike extends Vehicle {
 }
 
 const bike = new Motorbike()
-bike.startEngine()
-bike.burnOut()
-bike.startMoving()
+// bike.startEngine()
+// bike.burnOut()
+// bike.startMoving()
 
 class Car extends Vehicle {
     startMoving(){
@@ -252,8 +252,8 @@ class Car extends Vehicle {
     }
 }
 const car = new Car()
-car.startEngine()
-car.startMoving()
+// car.startEngine()
+// car.startMoving()
 // Task 03
 // на базе класса Vehicle реализовать класс Car у которого максимальная скорость 180 и
 // есть свой метод beep который выводит в консоль 'Beeeeeeeeeeeep...'
@@ -277,6 +277,81 @@ interface IWarrior {
     attack: () => number;
     attackWithBonus: Function
 }
+class Warrior implements IWarrior {
+    static isBattle = false;
+    static isFirst = false;
+    health: number;
+    damage: number;
+    defence: number;
+    constructor(health: number, damage: number, defence: number) {
+        this.health = health;
+        this.damage = damage;
+        this.defence = defence;
+    }
+
+    attack() {
+        return this.damage;
+    }
+    attackWithBonus() {
+    }
+
+    static battle(solder1: IWarrior, solder2: IWarrior) {
+        if(!this.isBattle) {
+            this.isFirst = Math.random() >= 0.5;
+        }
+        while (solder1.health > 0 && solder2.health > 0) {
+            if (this.isFirst) {
+                const damage = solder1.attackWithBonus() - solder2.defence;
+                console.log(`The warrior One attack with ${damage}!`);
+                solder2.health -= damage;
+                console.log(`The warrior Two has left ${solder2.health} health!`);
+                this.isFirst = !this.isFirst;
+            } else {
+                const damage = solder2.attackWithBonus() - solder1.defence;
+                console.log(`The warrior Two attack with ${damage}!`);
+                solder1.health -= damage;
+                console.log(`The warrior One has left ${solder1.health} health!`);
+                this.isFirst = !this.isFirst;
+            }
+        }
+        if (solder1.health > 0 && solder2.health <= 0) {
+            console.log('The One has won!!!!!');
+        } else {
+            console.log('The Two has won!!!!!');
+        }
+    }
+}
+
+class Solder extends Warrior {
+    constructor(health: number, damage: number, defence: number) {
+        super(health, damage, defence);
+    }
+    attackWithBonus() {
+       if(Math.random() <= 0.1) {
+           return this.attack() * 2;
+       } else {
+           return this.attack();
+       }
+    }
+}
+
+class Wizard extends  Warrior {
+    constructor(health: number, damage: number, defence: number) {
+        super(health, damage, defence);
+    }
+    attackWithBonus() {
+        if(Math.random() >= 0.5) {
+            return this.attack() + this.attack() * 0.2;
+        } else {
+            return this.attack();
+        }
+    }
+}
+
+const solder = new Solder(300, 30, 10);
+const wizard = new Wizard(150, 20, 20);
+
+Warrior.battle(solder, wizard);
 
 
 // Task 05
