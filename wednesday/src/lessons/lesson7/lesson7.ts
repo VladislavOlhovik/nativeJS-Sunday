@@ -144,12 +144,35 @@ Function.prototype._bind = function(ctx, ...args) {
 export default () => {};
 
 
-// задача с собеса
-//@ts-ignore
+// задача с собеса условие изменить функцию sleep чтобы в консоле получили 321 в столбик
+// async function sleep(ms) {
+//     setTimeout(() => {
+//         console.log(ms);
+//     }, ms*100);
+// }
+// async function show() {
+//     await sleep(3)
+//     await sleep(2)
+//     await sleep(1)
+// }
+// show();
+//@ts-ignore решение N1
+// async function sleep(ms) {
+//     return new Promise((res, rej) => {
+//         setTimeout(() => {
+//             res(console.log(ms));
+//         }, ms * 100);
+//     })
+// }
+//@ts-ignore решение N2
 async function sleep(ms) {
-    setTimeout(() => {
-        console.log(ms);
-    }, ms*100);
+    return new Promise(
+        async (res) => {
+            await setTimeout(() => {
+                console.log(ms)
+                res();
+            }, ms * 100);
+        })
 }
 
 
@@ -159,7 +182,7 @@ async function show() {
     await sleep(1)
 }
 
-// show();
+show();
 
 //
 // function func() {
