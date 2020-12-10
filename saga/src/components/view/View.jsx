@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSearch } from './viewSelector';
-import { setResultData } from '../../redux/reducers/searchReducer';
 
 const View = () => {
 	let [text, setSearchWord] = useState('');
@@ -14,7 +13,8 @@ const View = () => {
 	}
 
 	const getData = () => {
-		dispatch(setResultData(text))
+		// dispatch(setResultData(text))
+		dispatch({type: 'SEARCH', text})
 	}
 
 	return(
